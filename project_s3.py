@@ -40,8 +40,55 @@ class OnlineSalesRegisterCollector:
             return sum(total) - (sum(total) * 0.1)
         else:
             return sum(total)
+        
+    def twenty_percent_tax_calculation(self):
+        twenty_percent_tax = []   
+        for i in self.__name_items:
+            if self.__tax_rate[i] == 20:
+                twenty_percent_tax.append(i)
+
+        total = []
+        for i in twenty_percent_tax:
+            if self.__item_price[i]:
+                total.append(self.__item_price[i])
+
+        taxes = 0
+        for i in total:
+           taxes += i * 0.2
+
+        if len(self.__name_items) > 10:
+            return taxes - (taxes * 0.1)
+        else:
+            return taxes 
+
+    def ten_percent_tax_calculation(self):
+        ten_percent_tax = []
+        for i in self.__name_items:
+            if self.__tax_rate[i] == 10:
+                ten_percent_tax.append(i)
+
+        total = []
+        for i in ten_percent_tax:
+            if self.__item_price[i]:
+                total.append(self.__item_price[i]) 
+
+        taxes = 0
+        for i in total:
+           taxes += i * 0.1 
+
+        if len(self.__name_items) > 10:
+            return taxes - (taxes * 0.1)
+        else:
+            return taxes                        
+  
+    def total_tax(self):
+        return self.twenty_percent_tax_calculation() + self.ten_percent_tax_calculation()
 
 check = OnlineSalesRegisterCollector()
+check.add_item_to_cheque('кефир')
+check.add_item_to_cheque('кефир')
 check.add_item_to_cheque('кола')
 print(check.name_items)
 print(check.check_amount())
+print(check.ten_percent_tax_calculation())
+print(check.total_tax())
